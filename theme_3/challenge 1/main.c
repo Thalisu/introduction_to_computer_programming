@@ -109,9 +109,9 @@ void print_card_winner_between_two_values(long double value_1,
 }
 
 void print_winner(Card card_1, Card card_2) {
-  printf("Carta 1 - %s (%c): %ld", card_1.city_name, card_1.state,
+  printf("Carta 1 - %s (%c): %ld\n", card_1.city_name, card_1.state,
          card_1.population);
-  printf("Carta 2 - %s (%c): %ld", card_2.city_name, card_2.state,
+  printf("Carta 2 - %s (%c): %ld\n", card_2.city_name, card_2.state,
          card_2.population);
   print_card_winner_between_two_values(card_1.population, card_2.population);
 }
