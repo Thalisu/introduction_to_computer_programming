@@ -117,19 +117,8 @@ int get_valid_attribute(int excluded_attr) {
 }
 
 int compare_attribute(double val1, double val2, int is_density) {
-  if (is_density) {
-    if (val1 < val2)
-      return 1;
-    if (val2 < val1)
-      return 2;
-    return 0;
-  } else {
-    if (val1 > val2)
-      return 1;
-    if (val2 > val1)
-      return 2;
-    return 0;
-  }
+  return is_density ? (val1 < val2 ? 1 : (val2 < val1 ? 2 : 0))
+                    : (val1 > val2 ? 1 : (val2 > val1 ? 2 : 0));
 }
 
 void compare_two_attributes(Card card1, Card card2) {
