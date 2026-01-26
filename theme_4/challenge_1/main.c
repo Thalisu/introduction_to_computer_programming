@@ -1,22 +1,30 @@
 #include <stdio.h>
 void move_tower() {
-  // 5 right
   int max = 5;
   for (int i = 0; i < max; i++) {
     printf("Direita\n");
   }
 };
 void move_bishop() {
-  // 5 up right
   int max = 5;
   for (int i = 0; i < max; i++) {
     printf("Cima\nDireita\n");
   }
 };
 void move_queen() {
-  // 8 left
   int max = 8;
   for (int i = 0; i < max; i++) {
+    printf("Esquerda\n");
+  }
+};
+void move_knight() {
+  int maxY = 2;
+  int maxX = 1;
+
+  for (int i = 0; i < maxX; i++) {
+    for (int j = 0; j < maxY; j++) {
+      printf("Baixo\n");
+    }
     printf("Esquerda\n");
   }
 };
@@ -28,6 +36,8 @@ int main() {
   move_bishop();
   printf("Rainha se move:\n");
   move_queen();
+  printf("Cavalo se move:\n");
+  move_knight();
 
   return 0;
 }
