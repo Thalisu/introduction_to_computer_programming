@@ -32,7 +32,6 @@ bool is_invalid_ship_placement(int b_size, int s_size, int x1, int x2, int y1,
   }
 
   if (x1 > max_xy1_value || y1 > max_xy1_value) {
-    printf("a\n");
     return true;
   }
 
@@ -40,11 +39,15 @@ bool is_invalid_ship_placement(int b_size, int s_size, int x1, int x2, int y1,
     return true;
   }
 
-  if (((x2 - x1) + 1) != s_size && ((y2 - y1) + 1) != s_size) {
-    return true;
-  }
+  int x_len = (x2 - x1) + 1;
+  int y_len = (y2 - y1) + 1;
 
-  if ((x2 > 0 && y2 != 0) || (y2 > 0 && x2 != 0)) {
+  bool is_horizontal = (x_len == s_size && y_len == 1);
+  bool is_vertical = (y_len == s_size && x_len == 1);
+
+  bool is_diagonal = (x_len == s_size && y_len == s_size);
+
+  if (!is_horizontal && !is_vertical && !is_diagonal) {
     return true;
   }
 
@@ -58,16 +61,28 @@ void place_ship(int b_size, int board[b_size][b_size], int s_size, int x1,
     return;
   }
 
-  bool is_horizontal = y2 == 0;
+  int x_len = (x2 - x1) + 1;
+  int y_len = (y2 - y1) + 1;
 
-  if (y2 > 0) {
+  bool is_diagonal = (x_len == s_size && y_len == s_size);
+  bool is_vertical = (y_len == s_size && x_len == 1);
+
+  if (is_diagonal) {
+    for (int i = 0; i < s_size; i++) {
+      board[y1 + i][x1 + i] = 1;
+    }
+    return;
+  }
+
+  if (is_vertical) {
     for (int y = y1; y <= y2; y++) {
       board[y][x1] = 1;
     }
-  } else {
-    for (int x = x1; x <= x2; x++) {
-      board[y1][x] = 1;
-    }
+    return;
+  }
+
+  for (int x = x1; x <= x2; x++) {
+    board[y1][x] = 1;
   }
 };
 
@@ -78,7 +93,10 @@ int main() {
   int board[board_size][board_size];
   init_matrix(board_size, board);
 
-  place_ship(board_size, board, ship_size, 5, 0, 7, 9);
-  place_ship(board_size, board, ship_size, 7, 9, 5, 0);
+  place_ship(board_size, board, ship_size, 5, 5, 7, 9);
+  place_ship(board_size, board, ship_size, 7, 9, 5, 5);
+  place_ship(board_size, board, ship_size, 0, 2, 0, 2);
+  place_ship(board_size, board, ship_size, 4, 6, 1, 3);
+
   print_matrix(board_size, board);
 }
